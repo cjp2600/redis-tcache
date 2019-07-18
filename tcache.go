@@ -117,7 +117,7 @@ func (c *TCache) getBytes(key string) ([]byte, error) {
 	return b, nil
 }
 
-func (c *TCache) Cache(object interface{}, key string, tags []string, data func() error) error {
+func (c *TCache) Cache(object interface{}, key string, ttl time.Duration, tags []string, data func() error) error {
 	err := c.Get(key, object)
 	if err == nil {
 		return nil
@@ -129,7 +129,7 @@ func (c *TCache) Cache(object interface{}, key string, tags []string, data func(
 	_, err = c.setItem(&Item{
 		Key:        key,
 		Object:     object,
-		Expiration: 1 * time.Hour,
+		Expiration: ttl,
 	})
 	c.SetTags(key, tags)
 	return nil
