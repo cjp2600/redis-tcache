@@ -65,8 +65,8 @@ func (item *Item) object() (interface{}, error) {
 	return nil, nil
 }
 
-// setItem - write caching object
-func (c *TCache) setItem(item *Item) ([]byte, error) {
+// Set - write caching object
+func (c *TCache) Set(item *Item) ([]byte, error) {
 	object, err := item.object()
 	if err != nil {
 		return nil, err
@@ -134,7 +134,7 @@ func (c *TCache) Cache(object interface{}, key string, ttl time.Duration, tags [
 	if err != nil {
 		return err
 	}
-	_, err = c.setItem(&Item{
+	_, err = c.Set(&Item{
 		Key:        key,
 		Object:     object,
 		Expiration: ttl,
