@@ -18,8 +18,8 @@ err := cache.Cache(&cacheModel, "unique-cache-key", 6 * time.Hour, []string{"tag
 ## Flush cache
 
 ```golang
-  // flush by tags
-	cache.FlushTags([]string{"tag1", "tag2"})
-  // flush by key
-	cache.Flush(""unique-cache-key")
+// flush by tags
+cache.FlushTags([]string{"tag1", "tag2"})
+// flush by key
+cache.Flush(""unique-cache-key")
 ```
