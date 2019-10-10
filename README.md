@@ -6,7 +6,7 @@ Tagging radis caching library (based in go-redis)
 ```golang
 var cacheModel Model
   
-err := cache.Cache(&cacheModel, "unique-cache-key", 6 * time.Hour, []string{"tag1", "tag2", "tag3"}, func() error {
+err := tcache.Cache(&cacheModel, "unique-cache-key", 6 * time.Hour, []string{"tag1", "tag2", "tag3"}, func() error {
    cacheModel, err := repo.FillCahceModelFromDB()
    if err != nil {
      return err
@@ -15,11 +15,24 @@ err := cache.Cache(&cacheModel, "unique-cache-key", 6 * time.Hour, []string{"tag
 })  
 ```
 
+## Example №2
+```golang
+if err := tcache.Get("unique-cache-key", &cacheModel); err != nil {
+    _, err = tcache.Set(&tcache.Item{
+      Key:        "unique-cache-key",
+      Object:     cacheModel,
+      Expiration: 6 * time.Hour,
+    })
+    tcache.SetTags("unique-cache-key", []string{"tag1", "tag2", "tag3"})
+}
+```
+
 ## Flush cache
 
 ```golang
 // flush by tags
-cache.FlushTags([]string{"tag1", "tag2"})
+tcache.FlushTags([]string{"tag1", "tag2"})
 // flush by key
-cache.Flush(""unique-cache-key")
+tcache.Flush(""unique-cache-key")
 ```
+
