@@ -7,7 +7,7 @@ Example №1 (wrapper cache):
 var cacheModel Model
   
 err := cache.Cache(&cacheModel, "unique-cache-key", 6 * time.Hour, []string{"tag1", "tag2", "tag3"}, func() error {
-   cacheModel := repo.FillCahceModelFromDB()
+   cacheModel, err := repo.FillCahceModelFromDB()
    if err != nil {
      return err
    }
