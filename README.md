@@ -43,23 +43,23 @@ tcache.Flush(""unique-cache-key")
 ## Сustomize serialization (Example: protobuf JSONPb)
 ```golang
 func R() *tcache.TCache {
-	c := tcache.NewTCache(Client)
+   c := tcache.NewTCache(Client)
 
-	c.Marshal = func(i interface{}) (b []byte, e error) {
-		customMarshaller := &runtime.JSONPb{
-			OrigName:     true,
-			EmitDefaults: true, // disable 'omitempty'
-		}
-		return customMarshaller.Marshal(i)
+   c.Marshal = func(i interface{}) (b []byte, e error) {
+	customMarshaller := &runtime.JSONPb{
+		OrigName:     true,
+		EmitDefaults: true, // disable 'omitempty'
 	}
-	c.Unmarshal = func(bytes []byte, i interface{}) error {
-		customMarshaller := &runtime.JSONPb{
-			OrigName:     true,
-			EmitDefaults: true, // disable 'omitempty'
-		}
-		return customMarshaller.Unmarshal(bytes, i)
+	return customMarshaller.Marshal(i)
+    }
+    c.Unmarshal = func(bytes []byte, i interface{}) error {
+	customMarshaller := &runtime.JSONPb{
+		OrigName:     true,
+		EmitDefaults: true, // disable 'omitempty'
 	}
+	return customMarshaller.Unmarshal(bytes, i)
+     }
 
-	return c
+   return c
 }
 ```
